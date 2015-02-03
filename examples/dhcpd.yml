@@ -1,0 +1,81 @@
+---
+name: dhcpd-server
+
+# The DHCP Server is deployed to 10.9.8.62
+# The compilation VM is deployed at 10.9.8.61 (if needed)
+# All other IPs are excluded from BOSH
+director_uuid: 7c94395c-ca78-46d1-90cd-123456789017
+compilation:
+  cloud_properties:
+    ram: 2048
+    disk: 4096
+    cpu: 2
+  network: default
+  reuse_compilation_vms: true
+  workers: 1
+jobs:
+- instances: 1
+  name: dhcpd-pizza
+  networks:
+  - default:
+    - dns
+    - gateway
+    name: default
+    static_ips:
+    - 10.9.8.62
+  persistent_disk: 16
+  resource_pool: dhcpd_pool
+  templates:
+  - { release: dhcpd, name: dhcpd }
+  properties:
+    config_file: |
+      option domain-name "smurf.nono.com";
+      option domain-name-servers 8.8.8.8;
+
+      default-lease-time 600;
+      max-lease-time 7200;
+
+      log-facility local7;
+
+      subnet 10.9.8.0 netmask 255.255.254.0 {
+        option routers 10.9.8.1;
+        option broadcast-address 10.9.8.255;
+      }
+
+      host papa         { hardware ethernet 02:50:56:00:00:40; fixed-address papa.smurf.nono.com;        }
+      host actor        { hardware ethernet 02:50:56:00:00:41; fixed-address actor.smurf.nono.com;       }
+      host alchemist    { hardware ethernet 02:50:56:00:00:42; fixed-address alchemist.smurf.nono.com;   }
+networks:
+- name: default
+  subnets:
+  - cloud_properties:
+      name: VM Network
+    range: 10.9.8.0/23
+    dns:
+      - 8.8.8.8
+    gateway: 10.9.8.1
+    static:
+    - 10.9.8.62
+    reserved:
+    - 10.9.8.2  - 10.9.8.60
+    - 10.9.8.63 - 10.9.8.254
+
+releases:
+  - name: dhcpd
+    version: latest
+resource_pools:
+- cloud_properties:
+    ram: 2048
+    disk: 8192
+    cpu: 1
+  name: dhcpd_pool
+  network: default
+  stemcell:
+    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+    version: latest
+update:
+  canaries: 1
+  canary_watch_time: 30000 - 600000
+  max_in_flight: 8
+  serial: false
+  update_watch_time: 30000 - 600000
