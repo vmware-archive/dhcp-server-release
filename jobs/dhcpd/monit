@@ -1,0 +1,5 @@
+check process dhcpd
+  with pidfile /var/vcap/sys/run/dhcpd/dhcpd.pid
+  start program "/var/vcap/jobs/dhcpd/bin/ctl start"
+  stop program "/var/vcap/jobs/dhcpd/bin/ctl stop"
+  group vcap

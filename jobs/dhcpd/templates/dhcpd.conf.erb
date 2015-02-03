@@ -1,0 +1,14 @@
+option domain-name "<%= properties.domain_name %>";
+option domain-name-servers <%= properties.domain_name_servers.join(", ") %>;
+
+default-lease-time 600;
+max-lease-time 7200;
+
+log-facility local7;
+
+subnet <%= properties.subnet %> netmask <%= properties.netmask %> {
+  option routers <%= properties.routers.join(", ")%>;
+  option broadcast-address <%= properties.broadcast %>;
+}
+
+<%= properties.fixed_address_clients.join("\n") %>

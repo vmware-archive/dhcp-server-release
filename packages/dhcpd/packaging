@@ -1,0 +1,10 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+tar xvzf dhcpd/dhcp-4.2.7.tar.gz
+cd dhcp-4.2.7
+
+./configure --prefix=${BOSH_INSTALL_TARGET}
+make
+make check
+make install

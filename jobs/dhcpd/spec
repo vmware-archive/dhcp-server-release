@@ -1,0 +1,24 @@
+---
+name: dhcpd
+templates:
+    ctl.sh: bin/ctl
+    dhcpd.conf.erb: etc/dhcpd.conf
+
+packages:
+- dhcpd
+
+properties:
+  domain_name:
+    description: 'The domain name to append to searches'
+  domain_name_servers:
+    description: "FQDN or IP of DHCP clients' DNS server(s)"
+  subnet:
+    description: 'subnet, e.g. "10.9.8.0"'
+  netmask:
+    description: 'netmask, e.g. 255.255.255.0'
+  routers:
+    description: 'default route/gateway, e.g. 10.9.8.1 or gateway.example.org'
+  broadcast:
+    description: 'broadcast, derived from subnet+netmask, e.g. 10.9.8.255'
+  fixed_address_clients:
+    description: 'hosts with reservations: e.g. "host papa { hardware ethernet 08:00:07:26:c0:a5; fixed-address papa.smurf.cf-app.com; "'
