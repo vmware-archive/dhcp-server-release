@@ -1,6 +1,7 @@
 ---
-name: dhcpd
+name: dhcp-4.2.7
 
 dependencies:
 
-files: []
+files:
+ - dhcp/placeholder
