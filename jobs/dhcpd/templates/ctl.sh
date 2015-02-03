@@ -18,7 +18,7 @@ touch $LEASE_FILE
 case $1 in
 
   start)
-    $BASE_DIR/packages/dhcpd/sbin/$JOB_NAME -pf $PIDFILE -cf $CONFIG_FILE -lf $LEASE_FILE
+    $BASE_DIR/packages/dhcp-4.2.7/sbin/$JOB_NAME -pf $PIDFILE -cf $CONFIG_FILE -lf $LEASE_FILE
     ;;
   stop)
     kill $(cat $PIDFILE)
