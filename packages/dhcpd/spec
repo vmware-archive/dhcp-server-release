@@ -1,7 +1,0 @@
----
-name: dhcpd
-
-dependencies:
-
-files:
-  - dhcpd/dhcp-4.2.7.tar.gz

@@ -5,7 +5,7 @@ templates:
     dhcpd.conf.erb: etc/dhcpd.conf
 
 packages:
-- dhcpd
+- dhcp-4.2.7
 
 properties:
   config_file:
