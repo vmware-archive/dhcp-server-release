@@ -1,0 +1,5 @@
+check process dhclient_ipv6
+  with pidfile /var/vcap/sys/run/dhclient_ipv6/dhclient_ipv6.pid
+  start program "/var/vcap/jobs/dhclient_ipv6/bin/ctl start"
+  stop program "/var/vcap/jobs/dhclient_ipv6/bin/ctl stop"
+  group vcap

@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# we enable tracing and log everything; there's nothing to hide here.
+set -eux
+
+JOB_DIR=/var/vcap/jobs/dhclient_ipv6
+RUN_DIR=/var/vcap/sys/run/dhclient_ipv6
+LOG_DIR=/var/vcap/sys/log/dhclient_ipv6
+INTERFACE=<%= p('interface') %>
+# Where to place the PIDFILE? `/run` like Ubuntu? `/var/run` like CentOS?
+# We resolve this similar to the Council of Constance: we select a third location
+PIDFILE=/var/vcap/sys/run/dhclient_ipv6/dhclient_ipv6.pid
+
+mkdir -p $RUN_DIR $LOG_DIR /var/lib/dhcp
+chown -R vcap:vcap $RUN_DIR $LOG_DIR
+exec -- \
+  >>  $LOG_DIR/dhclient_ipv6.stdout.log \
+  2>> $LOG_DIR/dhclient_ipv6.stderr.log
+
+case $1 in
+
+  start)
+    # "-6" IPv6; no "-1", keep trying
+    dhclient -nw -v -6 -pf $PIDFILE -lf /var/lib/dhcp/dhclient6.${INTERFACE}.leases ${INTERFACE}
+
+    ;;
+
+  stop)
+    dhclient -r -v -pf $PIDFILE -lf /var/lib/dhcp/dhclient6.${INTERFACE}.leases ${INTERFACE}
+    kill $(cat $PIDFILE)
+
+    ;;
+
+  *)
+    echo "Usage: ctl {start|stop}" ;;
+
+esac

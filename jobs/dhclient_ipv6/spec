@@ -1,0 +1,13 @@
+---
+name: dhclient_ipv6
+
+templates:
+  ctl.erb: bin/ctl
+
+packages: []
+
+properties:
+  interface:
+    description: The interface which dhclient should listen, e.g. eth0, w43miip01etk-1@if6
+    default: |
+      $(ip link show | grep '^[0-9]' | awk '{print $2}' | tr -d ':' | grep -v '^lo$' | sed 's/@.*//')
