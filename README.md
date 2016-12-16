@@ -35,7 +35,7 @@ This should be paired with a job that enables IPv6 in the kernel, e.g.
 
 Properties:
 
-* `interface` — the ethernet interface to listen to, defaults to `eth0`
+* `interface` — the ethernet interface to listen to, defaults to randomly-selected non-loopback interface. Typically `eth0`
 
 ### Sample Deployment
 
@@ -52,9 +52,6 @@ broadcast packets.
 Be sure that the IP addresses that your DHCP server is configured to give out does not overlap with the IP addresses that BOSH is configured to give out.
 
 #### `dhclient_ipv6`
-
-if the interface is not specified, it will randomly choose
-a non-loopback interface. Most instances will only have one interface.
 
 There can only be one `dhclient_ipv6` job on a VM, and it can only bind
 to one interface.

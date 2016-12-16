@@ -1,0 +1,23 @@
+name: dhcpd
+version: "2"
+commit_hash: c03c5d0
+uncommitted_changes: false
+jobs:
+- name: dhclient_ipv6
+  version: 878c2d49a3f0e857b438a81a937a35465260d06b
+  fingerprint: 878c2d49a3f0e857b438a81a937a35465260d06b
+  sha1: f0f8a05832807eef640f43cbad41e0f95bc4a120
+- name: dhcpd
+  version: bce75e9c255530d6477e942c8664f6f7396f10ac
+  fingerprint: bce75e9c255530d6477e942c8664f6f7396f10ac
+  sha1: af428cd3c5f050e2691481b4f01aa0edfd669b9f
+packages:
+- name: dhcp-4.3.3
+  version: a31d844a5183d4c2b090ded7d23cdbfab76a3874
+  fingerprint: a31d844a5183d4c2b090ded7d23cdbfab76a3874
+  sha1: 1fd6e587f40250f694a63295faa9cac4d3b1ec4d
+  dependencies: []
+license:
+  version: a3e6d245553160dad1d273d363550134abc94578
+  fingerprint: a3e6d245553160dad1d273d363550134abc94578
+  sha1: 6a116e2e48d3c0f5eaa310f460be896e585ec65b
