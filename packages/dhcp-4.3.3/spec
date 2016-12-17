@@ -1,7 +1,0 @@
----
-name: dhcp-4.3.3
-
-dependencies:
-
-files:
- - dhcp/placeholder

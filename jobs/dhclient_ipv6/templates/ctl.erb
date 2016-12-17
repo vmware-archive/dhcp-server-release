@@ -8,10 +8,12 @@ RUN_DIR=/var/vcap/sys/run/dhclient_ipv6
 LOG_DIR=/var/vcap/sys/log/dhclient_ipv6
 INTERFACE=<%= p('interface') %>
 # Where to place the PIDFILE? `/run` like Ubuntu? `/var/run` like CentOS?
-# We resolve this similar to the Council of Constance: we select a third location
+# We resolve this in a manner similar to the Council of Constance: we select a third location
 PIDFILE=/var/vcap/sys/run/dhclient_ipv6/dhclient_ipv6.pid
+# Can't use Ubuntu's stock dhclient; apparmor profiles prevent writing PID to BOSH-preferred directory
+DHCLIENT=/var/vcap/packages/dhcp/sbin/dhclient
 
-mkdir -p $RUN_DIR $LOG_DIR /var/lib/dhcp
+mkdir -p $RUN_DIR $LOG_DIR /var/lib/dhcp ${PIDFILE%/*}
 chown -R vcap:vcap $RUN_DIR $LOG_DIR
 exec -- \
   >>  $LOG_DIR/dhclient_ipv6.stdout.log \
@@ -21,12 +23,12 @@ case $1 in
 
   start)
     # "-6" IPv6; no "-1", keep trying
-    dhclient -nw -v -6 -pf $PIDFILE -lf /var/lib/dhcp/dhclient6.${INTERFACE}.leases ${INTERFACE}
+    $DHCLIENT -nw -v -6 -pf $PIDFILE -lf /var/lib/dhcp/dhclient6.${INTERFACE}.leases ${INTERFACE}
 
     ;;
 
   stop)
-    dhclient -r -v -pf $PIDFILE -lf /var/lib/dhcp/dhclient6.${INTERFACE}.leases ${INTERFACE}
+    $DHCLIENT -r -v -pf $PIDFILE -lf /var/lib/dhcp/dhclient6.${INTERFACE}.leases ${INTERFACE}
     kill $(cat $PIDFILE)
 
     ;;

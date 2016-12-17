@@ -15,7 +15,7 @@ bosh deploy
 
 ### Jobs
 
-#### 1. `dhcpd`
+#### 0. `dhcpd`
 
 ISC DHCP Server.
 
@@ -23,7 +23,7 @@ Properties:
 
 * `config_file` — `dhcpd` [configuration file](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/3/html/System_Administration_Guide/s1-dhcp-configuring-server.html). Placed in `/var/vcap/jobs/dhcpd/etc/dhcpd.conf`.
 
-#### 2. `dhclient_ipv6`
+#### 1. `dhclient_ipv6`
 
 `dhclient` for IPv6. Typically used for IaaSes that require
 `dhclient` to acquire IPv6 addresses (e.g. AWS). Does not

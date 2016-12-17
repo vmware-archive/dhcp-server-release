@@ -1,6 +1,8 @@
 builds:
   3a469fe9-f9d8-4d53-9a41-59d58b827bbc:
     version: "1"
+  4480f110-d1a2-4622-5250-22175637a3fc:
+    version: 4.3.5
   b9f5c373-0a53-44b9-641b-329462ec84de:
     version: "2"
 format-version: "2"

@@ -1,9 +1,8 @@
 # abort script on any command that exits with a non zero value
 set -e
 
-curl -OL ftp://ftp.isc.org/isc/dhcp/4.3.3/dhcp-4.3.3.tar.gz
-tar xvzf dhcp-4.3.3.tar.gz
-cd dhcp-4.3.3
+tar xvzf dhcp/dhcp-4.3.5.tar.gz
+cd dhcp-4.3.5
 
 ./configure --prefix=${BOSH_INSTALL_TARGET}
 make
